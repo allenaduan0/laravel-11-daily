@@ -15,3 +15,4 @@ This repository documents my daily learning journey with **Laravel 11**, focusin
 ## Progress
 - Day 1: Laravel 11 project initialization, folder structure and environment setup
 - Day 2: Laravel 11 creating Task Model, migration, controller and basic routes
+- Day 3: Laravel 11 add validation, update and delete actions for tasks
