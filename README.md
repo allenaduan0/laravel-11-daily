@@ -20,3 +20,4 @@ This repository documents my daily learning journey with **Laravel 11**, focusin
 -   Day 3: Laravel 11 add validation, update and delete actions for tasks
 -   Day 4: Laravel 11 refactor task validation into form request classes
 -   Day 5: Laravel 11 standardize task API responses and HTTP status codes
+-   Day 6: Laravel 11 improve task API error handling and validation responses

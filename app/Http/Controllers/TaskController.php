@@ -12,10 +12,14 @@ class TaskController extends Controller
 {
     public function index()
     {
+        $tasks = Task::all();
+
         return response()->json([
             'success' => true,
-            'data' => Task::all(),
-            'message' => 'Tasks retrieved successfully',
+            'data' => $tasks,
+            'message' => $tasks->isEmpty()
+                ? 'No task found'
+                : 'Tasks retrieved successfully'
         ], 200);
     }
 
