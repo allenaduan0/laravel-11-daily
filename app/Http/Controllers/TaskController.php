@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use Illuminate\Container\Attributes\Tag;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class TaskController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $tasks,
+            'data' => TaskResource::collection($tasks),
             'message' => $tasks->isEmpty()
                 ? 'No task found'
                 : 'Tasks retrieved successfully'
@@ -31,7 +32,7 @@ class TaskController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $task,
+            'data' => new TaskResource($task),
             'message' => 'Task created successfully',
         ], 201);
     }
@@ -44,7 +45,7 @@ class TaskController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $task,
+            'data' => new TaskResource($task),
             'message' => 'Task updated successfully',
         ], 200);
     }
