@@ -22,3 +22,4 @@ This repository documents my daily learning journey with **Laravel 11**, focusin
 -   Day 5: Laravel 11 standardize task API responses and HTTP status codes
 -   Day 6: Laravel 11 improve task API error handling and validation responses
 -   Day 7: Laravel 11 introduce API resource for task responses  
+-   Day 8: Laravel 11 Pagination added to tasks API

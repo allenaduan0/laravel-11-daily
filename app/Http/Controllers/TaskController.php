@@ -13,14 +13,20 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::latest()->paginate(10);
 
         return response()->json([
             'success' => true,
             'data' => TaskResource::collection($tasks),
             'message' => $tasks->isEmpty()
                 ? 'No task found'
-                : 'Tasks retrieved successfully'
+                : 'Tasks retrieved successfully',
+            'meta' => [
+                'current_page' => $tasks->currentPage(),
+                'last_page' => $tasks->lastPage(),
+                'per_page' => $tasks->perPage(),
+                'total' => $tasks->total(),
+            ],
         ], 200);
     }
 
