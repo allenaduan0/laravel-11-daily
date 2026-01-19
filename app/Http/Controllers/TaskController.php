@@ -11,9 +11,14 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::latest()->paginate(10);
+        $tasks = Task::query()
+            ->when($request->boolean('completed'), fn ($q) => $q->completed())
+            ->when($request->boolean('pending'), fn ($q) => $q->pending())
+            ->search($request->query('search'))
+            ->latest()
+            ->paginate();
 
         return response()->json([
             'success' => true,
