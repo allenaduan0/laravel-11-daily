@@ -24,3 +24,4 @@ This repository documents my daily learning journey with **Laravel 11**, focusin
 -   Day 7: Laravel 11 introduce API resource for task responses  
 -   Day 8: Laravel 11 Pagination added to tasks API
 -   Day 9: Laravel 11 Add task filtering and search using query scopes
+-   Day 10: Laravel 11 Add Sanctum token authentication for api
