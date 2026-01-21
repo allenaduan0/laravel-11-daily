@@ -19,8 +19,15 @@ use App\Http\Controllers\Api\V1\AuthController;
 
 Route::prefix('api/v1')->middleware('api')->group(function () {
    Route::post('/login', [AuthController::class, 'login']);
+   Route::post('/register', [AuthController::class, 'register']);
 
-   Route::middleware('auth:sanctum')->group(function () {
-       Route::apiResource('tasks', TaskController::class);
+   Route::middleware('auth:sanctum', 'abilities:tasks:read')->group(function () {
+       Route::get('/tasks', [TaskController::class, 'index']);
+   });
+
+   Route::middleware(['auth:sanctum', 'abilities:tasks:write'])->group(function () {
+       Route::post('/tasks', [TaskController::class, 'store']);
+       Route::put('/tasks/{task}', [TaskController::class, 'update']);
+       Route::delete('/tasks/{task}', [TaskController::class, 'destroy']);
    });
 });

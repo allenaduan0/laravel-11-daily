@@ -23,11 +23,38 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $token = $user->createToken('api-token')->plainTextToken;
+        $token = $user->createToken(
+            'api-token',
+            ['tasks:read', 'tasks:write']
+        )->plainTextToken;
 
         return response()->json([
             'token' => $token,
             'token_type' => 'Bearer',
         ]);
+    }
+
+    public function register(Request $request) {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+        ]);
+
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => bcrypt($validated['password']),
+        ]);
+
+        $token = $user->createToken(
+            'api-token',
+            ['tasks:read', 'tasks:write']
+        )->plainTextToken;
+
+        return response()->json([
+            'token' => $token,
+            'token_type' => 'Bearer',
+        ], 201);
     }
 }
