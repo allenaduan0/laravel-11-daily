@@ -29,5 +29,8 @@ Route::prefix('api/v1')->middleware('api')->group(function () {
        Route::post('/tasks', [TaskController::class, 'store']);
        Route::put('/tasks/{task}', [TaskController::class, 'update']);
        Route::delete('/tasks/{task}', [TaskController::class, 'destroy']);
+
+       Route::post('/tasks/{id}/restore', [TaskController::class, 'restore']);
+       Route::get('/tasks-archived', [TaskController::class, 'archived']);
    });
 });

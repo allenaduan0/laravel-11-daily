@@ -71,4 +71,26 @@ class TaskController extends Controller
             'message' => 'Task deleted successfully',
         ], 200);
     }
+
+    public function archived()
+    {
+        $tasks = Task::onlyTrashed()->latest()->paginate(10);
+
+        return response()->json([
+            'success' => true,
+            'data' => TaskResource::collection($tasks),
+            'message' => 'Tasks archived successfully',
+        ]);
+    }
+
+    public function restore(int $id)
+    {
+        $task = Task::onlyTrashed()->findOrFail($id);
+        $task->restore();
+
+        return response()->json([
+            'success' => true,
+            'message' => "Task restored successfully",
+        ]);
+    }
 }
