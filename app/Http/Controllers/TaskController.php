@@ -39,7 +39,9 @@ class TaskController extends Controller
     {
 
 
-        $task = Task::create($request->validated());
+        $task = $request->user()->tasks()->create(
+            $request->validated()
+        );
 
         return response()->json([
             'success' => true,
@@ -50,7 +52,7 @@ class TaskController extends Controller
 
     public function update(UpdateTaskRequest $request, Task $task)
     {
-
+        $this->authorize('update', $task);
 
         $task->update($request->validated());
 
@@ -63,6 +65,8 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
+        $this->authorize('delete', $task);
+
         $task->delete();
 
         return response()->json([
@@ -85,6 +89,10 @@ class TaskController extends Controller
 
     public function restore(int $id)
     {
+        $task = Task::onlyTrashed()->findOrFail($id);
+
+        $this->authorize('restore', $task);
+
         $task = Task::onlyTrashed()->findOrFail($id);
         $task->restore();
 
